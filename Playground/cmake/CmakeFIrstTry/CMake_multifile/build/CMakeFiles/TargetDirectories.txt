@@ -1,3 +1,0 @@
-D:/Dev/Playground/cmake/CmakeFIrstTry/CMake_multifile/build/CMakeFiles/Add.dir
-D:/Dev/Playground/cmake/CmakeFIrstTry/CMake_multifile/build/CMakeFiles/edit_cache.dir
-D:/Dev/Playground/cmake/CmakeFIrstTry/CMake_multifile/build/CMakeFiles/rebuild_cache.dir
