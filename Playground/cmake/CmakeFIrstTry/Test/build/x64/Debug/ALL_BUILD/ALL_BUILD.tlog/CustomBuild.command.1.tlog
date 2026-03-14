@@ -1,0 +1,10 @@
+^D:\DEV\PLAYGROUND\CMAKE\TEST\CMAKELISTS.TXT
+setlocal
+D:\Dev\_tools\cmake\bin\cmake.exe -SD:/Dev/Playground/cmake/Test -BD:/Dev/Playground/cmake/Test/build --check-stamp-file D:/Dev/Playground/cmake/Test/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

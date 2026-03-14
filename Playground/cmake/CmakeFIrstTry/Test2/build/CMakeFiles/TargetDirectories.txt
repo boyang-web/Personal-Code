@@ -1,0 +1,3 @@
+D:/Dev/Playground/cmake/Test2/build/CMakeFiles/HelloCMake.dir
+D:/Dev/Playground/cmake/Test2/build/CMakeFiles/edit_cache.dir
+D:/Dev/Playground/cmake/Test2/build/CMakeFiles/rebuild_cache.dir
