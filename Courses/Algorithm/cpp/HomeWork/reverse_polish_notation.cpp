@@ -30,47 +30,81 @@ ab+cde*+*f-
 
 */
 
+// #include <iostream>
+// #include <string>
+// #include <sstream>
+// #include <stack>
+// #include <fstream>
+// #include <vector>
+// using namespace std;
+
+// #include <cctype>
+// int main()
+// {
+//     stack<int> nums;
+//     ifstream fin("in.txt");
+//     string token;
+//     while (getline(fin, token, ','))
+//     {//这里需要考虑负数
+//         if (isdigit(token[0]) || (token[0] == '-' && token.size() > 1))
+//             nums.push(stoi(token));
+//         else
+//         {
+//             int n2 = nums.top();
+//             nums.pop();
+//             int n1 = nums.top();
+//             nums.pop();
+//             if (token == "+")
+//                 nums.push(n1 + n2);
+//             if (token == "-")
+//                 nums.push(n1 - n2);
+//             if (token == "*")
+//                 nums.push(n1 * n2);
+//             if (token == "/")
+//                 nums.push(n1 / n2);
+//         }
+//     }
+//     if(!nums.empty())
+//     cout << nums.top();
+//     else
+//     cout<<"0";//防止最后一个案例还来个空
+//     return 0;
+// }
+
+// 又来一个一样的题，但是不读文件
+
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <stack>
-#include <fstream>
 #include <vector>
+#include <cctype>
+#include <stack>
+
 using namespace std;
 
-
-
-#include <cctype>
 int main()
 {
-    stack<int> nums;
-    ifstream fin("in.txt");
-    string token;
-    while (getline(fin, token, ','))
-    {//这里需要考虑负数
-        if (isdigit(token[0]) || (token[0] == '-' && token.size() > 1))
-            nums.push(stoi(token));
+    stack<int> stk;
+    char c;
+    while (cin >> c)//问题居然是要把这char改成string
+    {
+        if (isdigit(c))
+            stk.push(c - '0');
         else
         {
-            int n2 = nums.top();
-            nums.pop();
-            int n1 = nums.top();
-            nums.pop();
-            if (token == "+")
-                nums.push(n1 + n2);
-            if (token == "-")
-                nums.push(n1 - n2);
-            if (token == "*")
-                nums.push(n1 * n2);
-            if (token == "/")
-                nums.push(n1 / n2);
+            int n2 = stk.top();
+            stk.pop();
+            int n1 = stk.top();
+            stk.pop();
+            if (c == '+')
+                stk.push(n1 + n2);
+            if (c == '-')
+                stk.push(n1 - n2);
+            if (c == '*')
+                stk.push(n1 * n2);
+            if (c == '/')
+                stk.push(n1 / n2);
         }
     }
-    if(!nums.empty())
-    cout << nums.top();
-    else
-    cout<<"0";//最后一个案例还来个空
+    cout << stk.top();
     return 0;
 }
-
-
