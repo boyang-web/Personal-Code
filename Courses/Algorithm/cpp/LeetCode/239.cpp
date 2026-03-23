@@ -25,7 +25,7 @@
 
 */
 // 单调队列的方法复刻一下
-//复刻失败
+// 复刻失败
 // #include <vector>
 // #include <deque>
 
@@ -65,38 +65,82 @@
 //     }
 // };
 
-//ai版本
+// ai版本
+//  #include <vector>
+//  #include <deque>
+//  using namespace std;
+
+// class Solution
+// {
+// public:
+//     vector<int> maxSlidingWindow(vector<int> &nums, int k)
+//     {
+//         if (nums.empty() || k > nums.size())
+//             return {};
+
+//         deque<int> q;   // 存下标//这就跟单调栈的题很相似了
+//         vector<int> ans;
+
+//         for (int right = 0; right < nums.size(); right++)
+//         {
+//             // 1. 维护单调递减队列
+//             while (!q.empty() && nums[right] >= nums[q.back()])
+//                 q.pop_back();
+//             q.push_back(right);
+
+//             // 2. 删除滑出窗口的元素
+//             if (q.front() <= right - k)//这里就非常巧妙，不可能出队的不是窗口内的最大值，因为一定被窗口内的最大值挤掉了，所以等效于判断最大值有没有出队
+//                 q.pop_front();
+
+//             // 3. 窗口形成后开始记录答案
+//             if (right >= k - 1)
+//                 ans.push_back(nums[q.front()]);
+//         }
+
+//         return ans;
+//     }
+// };
+
+// 自己再写一版
+
+#include <iostream>
 #include <vector>
 #include <deque>
 using namespace std;
-
 class Solution
 {
 public:
     vector<int> maxSlidingWindow(vector<int> &nums, int k)
     {
-        if (nums.empty() || k > nums.size())
+        if (k > nums.size() || nums.empty())
             return {};
-
-        deque<int> q;   // 存下标//这就跟单调栈的题很相似了
+        int left = 0, right = k;
+        deque<int> q; // 记住是存下标
         vector<int> ans;
-
-        for (int right = 0; right < nums.size(); right++)
+        // 初始化窗口
+        for (int i = 0; i < k; i++)
         {
-            // 1. 维护单调递减队列
-            while (!q.empty() && nums[right] >= nums[q.back()])
+            while (!q.empty() && nums[q.back()] <= nums[i])
                 q.pop_back();
-            q.push_back(right);
-
-            // 2. 删除滑出窗口的元素
-            if (q.front() <= right - k)
-                q.pop_front();
-
-            // 3. 窗口形成后开始记录答案
-            if (right >= k - 1)
-                ans.push_back(nums[q.front()]);
+           
+                q.push_back(i);
         }
-
+        ans.push_back(nums[q.front()]);
+        
+        while (right < nums.size())
+        {
+            while (!q.empty() && nums[q.back()] <= nums[right])
+                q.pop_back();
+            
+                q.push_back(right);
+            right++;
+            if (q.front() == left)
+            {
+                q.pop_front();
+            }
+            left++;
+            ans.push_back(nums[q.front()]);
+        }
         return ans;
     }
 };
