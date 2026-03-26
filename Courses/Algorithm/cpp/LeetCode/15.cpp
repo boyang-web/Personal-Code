@@ -1,7 +1,7 @@
 /*
 
 给你一个整数数组 nums ，
-判断是否存在三元组 [nums[i], nums[j], nums[k]] 
+判断是否存在三元组 [nums[i], nums[j], nums[k]]
 满足 i != j、i != k 且 j != k ，
 同时还满足 nums[i] + nums[j] + nums[k] == 0 。
 请你返回所有和为 0 且不重复的三元组。
@@ -23,11 +23,54 @@ nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
 思路：先排序，再固定其中一个数进行两数之和的操作
 注意要避免重复
 */
-#include<vector>
+#include <vector>
+#include <algorithm>
 using namespace std;
-class Solution {
+class Solution
+{
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        
+    vector<vector<int>> threeSum(vector<int> &nums)
+    {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        for (int i = 0; i < n-2;i++)
+        {
+            // 固定第一个数去重
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            int target = 0 - nums[i];
+            // 两数之和操作
+            int left = i+1, right = n - 1;
+            while (left < right)
+            {
+                int sum = nums[left] + nums[right];
+                if (sum > target)
+                {
+                    int temp = nums[right];
+                    while (left < right && nums[right] == temp)
+                        right--;
+                }
+                else if (sum < target)
+                {
+                    int temp = nums[left];
+                    while (left < right && nums[left] == temp)
+                        left++;
+                }
+                else
+                {
+                    ans.push_back({nums[i], nums[left], nums[right]});
+
+                    int tempLeft = nums[left];
+                    int tempRight = nums[right];
+                    while (left < right && nums[left] == tempLeft)
+                        left++;
+                    while (left < right && nums[right] == tempRight)
+                        right--;
+                }
+            }
+           
+        }
+        return ans;
     }
 };

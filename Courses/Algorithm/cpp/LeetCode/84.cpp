@@ -15,13 +15,13 @@ premium lock icon
 解释：最大的矩形为图中红色区域，面积为 10
 示例 2：
 */
-#include <vector>
-#include <stack>
+// #include <vector>
+// #include <stack>
 
-using namespace std;
+// using namespace std;
 
 // 近期最后一题了，可喜可贺
-//不用单调栈还是TLE 了
+// 不用单调栈还是TLE 了
 // class Solution
 // {
 // public:
@@ -45,7 +45,7 @@ using namespace std;
 //             }
 //             for (int j = i; j >= 0; j--)
 //             {
-                
+
 //                 if (heights[j] < heights[i])
 //                 {
 //                     left = j;
@@ -58,10 +58,56 @@ using namespace std;
 //         return ans;
 //     }
 // };
-
-class Solution {
+#include <vector>
+#include <stack>
+using namespace std;
+class Solution
+{
 public:
-    int largestRectangleArea(vector<int>& heights) {
-        
+    int largestRectangleArea(vector<int> &heights)
+    {
+        int n=heights.size();
+        vector<int> leftv(n),rightv(n);
+        stack<int> stkleft,stkright;
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            if(i==0)
+            {
+                leftv[i]=-1;
+                stkleft.push(i);//存下标
+                continue;
+            }
+            while(!stkleft.empty()&&heights[i]<=heights[stkleft.top()])
+            {
+                stkleft.pop();
+            }
+            leftv[i]=stkleft.empty()?-1:stkleft.top();
+            stkleft.push(i);
+        }
+         for(int i=n-1;i>=0;i--)
+        {
+            if(i==n-1)
+            {
+                rightv[i]=n;
+                stkright.push(i);//存下标
+                continue;
+            }
+            while(!stkright.empty()&&heights[i]<=heights[stkright.top()])
+            {
+                stkright.pop();
+            }
+            rightv[i]=stkright.empty()?n:stkright.top();
+            stkright.push(i);
+        }
+        //计算面积
+        for(int i=0;i<n;i++)
+        {
+            int temp=heights[i]*(rightv[i]-leftv[i]-1);
+            ans=max(ans,temp);
+
+        }
+        return ans;
+
     }
 };
