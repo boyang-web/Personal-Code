@@ -108,6 +108,8 @@ void remove_duplicates()
     coutlist(head);
    
 }
+
+
 void writefile()
 {
     ofstream fout("tempfile/mylist.txt");
@@ -118,7 +120,7 @@ void writefile()
     // fout << "2 3 4 6 8";
 
     // 原地去重输出
-    // fout << "1 1 2 2 3 3 3 4 4 4 4";
+    fout << "1 1 2 2 3 3 3 4 4 4 4";
 
     
 }
@@ -126,7 +128,7 @@ void writefile()
 int main()
 {
     writefile();
-    // merge_two();
-    // remove_duplicates();
+    //  merge_two();
+    remove_duplicates();
     return 0;
 }
