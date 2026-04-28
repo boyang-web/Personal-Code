@@ -75,6 +75,45 @@
 #include <iostream>
 
 using namespace std;
+//二周目
+class Solution {
+public:
+    string simplifyPath(string path) {
+        stringstream ss(path);
+        string token;
+        vector<string> v;
+        string ans;
+        while(getline(ss,token,'/'))
+        {
+            if(token=="."||token=="")
+            {
+            
+            }
+            else if(token=="..")
+            {
+                v.pop_back();
+            }
+            else
+            {
+                v.push_back(token);
+            }
+        }
+        for(auto x:v)
+        {
+            ans+="/";
+            ans+=x;
+        }
+        if(ans=="")
+        ans="/";
+        return ans;
+    }
+};
+
+
+
+
+
+
 class Solution
 {
 public:

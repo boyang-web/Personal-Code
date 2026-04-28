@@ -22,30 +22,66 @@
  */
 #include <string>
 #include <map>
+#include<iostream>
 using namespace std;
-//这个题就比模板更灵活了一些
+// 这个题就比模板更灵活了一些
+//  class Solution
+//  {
+//  public:
+//      int lengthOfLongestSubstring(string s)
+//      {
+//          if (s.empty())
+//              return 0;
+//          map<char, int> window;
+//          int left = 0, right = 0;
+//          int res = 0;
+//          while (right < s.size())
+//          {
+//              char c = s[right];
+//              window[c]++;
+//              right++;
+//              while (window[c] > 1)
+//              {
+//                  window[s[left]]--;
+//                  left++;
+//              }
+//              res = max(res, right - left);
+//          }
+//          return res;
+//      }
+//  };
+
+// 二周目
 class Solution
 {
 public:
     int lengthOfLongestSubstring(string s)
     {
-        if (s.empty())
-            return 0;
-        map<char, int> window;
+        if(s.size()==1) return 1;
         int left = 0, right = 0;
         int res = 0;
+        map<char, int> mp;
         while (right < s.size())
         {
-            char c = s[right];
-            window[c]++;
-            right++;
-            while (window[c] > 1)
+            mp[s[right]]++;
+            while(mp[s[right]]>1)
             {
-                window[s[left]]--;
+                mp[s[left]]--;
                 left++;
+                
             }
-            res = max(res, right - left);
+            res=max(res,right-left+1);
+            right++;
         }
         return res;
     }
 };
+
+
+int main()
+{
+    Solution s;
+    cout<<s.lengthOfLongestSubstring("pwwkew");
+    return 0;
+}
+//abcabcbb
