@@ -1,2 +1,0 @@
-visited[nx][ny] == false)
-            {
